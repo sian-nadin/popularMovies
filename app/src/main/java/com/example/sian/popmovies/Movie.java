@@ -1,14 +1,25 @@
 package com.example.sian.popmovies;
 
-/**
- * Created by Sian on 14/03/2017.
- */
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Movie {
+    public static final String TMDB_IMAGE_PATH = "http://image.tmdb.org/t/p/w500";
+
     private String title;
+
+    @SerializedName("poster_path")
     private String poster;
-    private String backdrop;
+
+    @SerializedName("overview")
     private String description;
+
+    @SerializedName("backdrop_path")
+    private String backdrop;
+
+    public Movie() {}
 
     public String getTitle() {
         return title;
@@ -19,7 +30,7 @@ public class Movie {
     }
 
     public String getPoster() {
-        return "http://t2.gstatic.com/images?q=tbn:ANd9GcQW3LbpT94mtUG1PZIIzJNxmFX399wr_NcvoppJ82k7z99Hx6in";
+        return TMDB_IMAGE_PATH + poster;
     }
 
     public void setPoster(String poster) {
@@ -27,7 +38,7 @@ public class Movie {
     }
 
     public String getBackdrop() {
-        return backdrop;
+        return TMDB_IMAGE_PATH + backdrop;
     }
 
     public void setBackdrop(String backdrop) {
@@ -40,5 +51,13 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static class MovieResult{
+        private List<Movie> results;
+
+        public List<Movie> getResults() {
+            return results;
+        }
     }
 }

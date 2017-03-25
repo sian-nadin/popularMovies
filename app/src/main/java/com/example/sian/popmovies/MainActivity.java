@@ -9,6 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
@@ -28,13 +34,32 @@ public class MainActivity extends AppCompatActivity {
         //Give the RecyclerView a default Layout Manager
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<Movie> movies = new ArrayList<>();
-        for (int i=0; i<25; i++){
-            movies.add(new Movie());
-        }
-        mMovieListAdapter.setMovieList(movies);
-
+        getPopularMovies();
     }
 
+    private void getPopularMovies() {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint("http://api.themoviedb.org/3")
+                .setRequestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestFacade request) {
+                        request.addEncodedQueryParam("api_key", "#");
+                    }
+                })
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+        MoviesApiService service = restAdapter.create(MoviesApiService.class);
+        service.getPopularMovies(new Callback<Movie.MovieResult>() {
+            @Override
+            public void success(Movie.MovieResult movieResult, Response response) {
+                mMovieListAdapter.setMovieList(movieResult.getResults());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
 
 }
