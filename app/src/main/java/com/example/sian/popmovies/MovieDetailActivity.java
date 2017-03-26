@@ -7,6 +7,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -19,6 +20,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView poster;
     TextView title;
     TextView description;
+//    TextView rating;
+    TextView releaseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +42,21 @@ public class MovieDetailActivity extends AppCompatActivity {
         CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolbarLayout.setTitle(mMovie.getTitle());
 
+        RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.star_rating_bar); // initiate a rating bar
+        double ratingNumber = mMovie.getVoteAverage(); // get user rating
+        simpleRatingBar.setRating((float) ratingNumber); // set rating
+
         backdrop = (ImageView) findViewById(R.id.backdrop);
         title = (TextView) findViewById(R.id.movie_title);
         description = (TextView) findViewById(R.id.movie_description);
         poster = (ImageView) findViewById(R.id.movie_poster);
+//        rating = (TextView) findViewById(R.id.movie_user_rating);
+        releaseDate = (TextView) findViewById(R.id.movie_release_date);
 
         title.setText(mMovie.getTitle());
         description.setText(mMovie.getDescription());
+        releaseDate.setText(mMovie.getReleaseDate());
+//        rating.setText((int) mMovie.getVoteAverage());
         Picasso.with(this)
                 .load(mMovie.getPoster())
                 .into(poster);

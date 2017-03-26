@@ -29,11 +29,6 @@ public class Movie implements Parcelable{
     @SerializedName("vote_average")
     private double voteAverage;
 
-    @SerializedName("vote_count")
-    private long voteCount;
-
-    private double popularity;
-
     public Movie() {}
 
     public String getTitle() {
@@ -68,14 +63,14 @@ public class Movie implements Parcelable{
         this.description = description;
     }
 
-    public double getPopularity() {
-        return popularity;
-    }
-
-    public Movie setPopularity(double popularity) {
-        this.popularity = popularity;
-        return this;
-    }
+//    public double getPopularity() {
+//        return popularity;
+//    }
+//
+//    public Movie setPopularity(double popularity) {
+//        this.popularity = popularity;
+//        return this;
+//    }
 
     public String getReleaseDate() {
         return releaseDate;
@@ -95,16 +90,6 @@ public class Movie implements Parcelable{
         return this;
     }
 
-    public long getVoteCount() {
-        return voteCount;
-    }
-
-    public Movie setVoteCount(long voteCount) {
-        this.voteCount = voteCount;
-        return this;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -118,7 +103,6 @@ public class Movie implements Parcelable{
         backdrop = in.readString();
         releaseDate = in.readString();
         voteAverage = in.readDouble();
-        voteCount = in.readLong();
     }
 
     //Write to parcel
@@ -130,7 +114,6 @@ public class Movie implements Parcelable{
         parcel.writeString(backdrop);
         parcel.writeString(releaseDate);
         parcel.writeDouble(voteAverage);
-        parcel.writeDouble(voteCount);
     }
 
     public static class MovieResult{
