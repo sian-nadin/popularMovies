@@ -8,8 +8,9 @@ import java.util.List;
 public class Movie {
     public static final String TMDB_IMAGE_PATH = "http://image.tmdb.org/t/p/w500";
 
-    private String title;
+    private String title; // This is the same as API name
 
+    //Says what name to take from Json data since the field name doesn't match the name of Api field
     @SerializedName("poster_path")
     private String poster;
 
