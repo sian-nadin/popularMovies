@@ -20,7 +20,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView poster;
     TextView title;
     TextView description;
-//    TextView rating;
+    TextView rating;
     TextView releaseDate;
 
     @Override
@@ -43,20 +43,23 @@ public class MovieDetailActivity extends AppCompatActivity {
         toolbarLayout.setTitle(mMovie.getTitle());
 
         RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.star_rating_bar); // initiate a rating bar
+
         double ratingNumber = mMovie.getVoteAverage(); // get user rating
+        String ratingAsString = Double.toString(ratingNumber); //Use for displaying rating under rating bar
+
         simpleRatingBar.setRating((float) ratingNumber); // set rating
 
         backdrop = (ImageView) findViewById(R.id.backdrop);
         title = (TextView) findViewById(R.id.movie_title);
         description = (TextView) findViewById(R.id.movie_description);
         poster = (ImageView) findViewById(R.id.movie_poster);
-//        rating = (TextView) findViewById(R.id.movie_user_rating);
+        rating = (TextView) findViewById(R.id.movie_user_rating);
         releaseDate = (TextView) findViewById(R.id.movie_release_date);
 
         title.setText(mMovie.getTitle());
         description.setText(mMovie.getDescription());
         releaseDate.setText(mMovie.getReleaseDate());
-//        rating.setText((int) mMovie.getVoteAverage());
+        rating.setText(ratingAsString);
         Picasso.with(this)
                 .load(mMovie.getPoster())
                 .into(poster);
