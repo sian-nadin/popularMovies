@@ -19,7 +19,8 @@
         </activity>
         <activity
             android:name=".MovieDetailActivity"
-            android:label="_activity_movie_detail" >
+            android:label="_activity_movie_detail"
+            android:parentActivityName="com.example.sian.popmovies.MainActivity">
         </activity>
     </application>
 

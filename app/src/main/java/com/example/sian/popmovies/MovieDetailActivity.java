@@ -4,6 +4,7 @@ package com.example.sian.popmovies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -39,15 +40,16 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         toolbarLayout.setTitle(mMovie.getTitle());
 
-        RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.star_rating_bar); // initiate a rating bar
 
         double ratingNumber = mMovie.getVoteAverage(); // get user rating
         String ratingAsString = Double.toString(ratingNumber); //Use for displaying rating under rating bar
 
-        simpleRatingBar.setRating((float) ratingNumber); // set rating
 
         backdrop = (ImageView) findViewById(R.id.backdrop);
         title = (TextView) findViewById(R.id.movie_title);
@@ -58,8 +60,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         title.setText(mMovie.getTitle());
         description.setText(mMovie.getDescription());
-        releaseDate.setText(mMovie.getReleaseDate());
-        rating.setText(ratingAsString);
+        releaseDate.setText("Release date: " + mMovie.getReleaseDate());
+        rating.setText("Average rating: " + ratingAsString);
         Picasso.with(this)
                 .load(mMovie.getPoster())
                 .into(poster);
